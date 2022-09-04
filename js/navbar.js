@@ -1,3 +1,16 @@
+window.onload = function() {
+    var reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        sessionStorage.removeItem("reloading");
+        Change();
+    }
+}
+
+function reloadP() {
+    sessionStorage.setItem("reloading", "true");
+    document.location.reload();
+}
+
 window.addEventListener('load', function () {
     var allElements = document.getElementsByTagName('*');
     Array.prototype.forEach.call(allElements, function (el) {
@@ -20,7 +33,9 @@ window.addEventListener('load', function () {
 function Change() {
     if (window.sessionStorage.getItem("JWT") != null) {
         console.log("if");
-        $(this).html('Logout');
+        // $(this).html('Logout');
+        // const btnElement = document.getElementById('log_in_out_btn');
+        // btnElement.innerText = '새이름!';
     }
     else if (window.sessionStorage.getItem("JWT") == null) {
         console.log("elif");

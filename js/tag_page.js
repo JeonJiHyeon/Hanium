@@ -6,7 +6,7 @@ function btn_onclick(num) {
 function dropdown_onclick(num) {
     callApiInfo(num,"1");
     noneTag(num);
-
+    sort_byOnclick(num);
 }
 
 var totalPage = 0;
@@ -26,7 +26,7 @@ function callApiInfo(num, pageNumber) {
         url1="http://13.209.87.88:8080/hotplaces?page=" + pageNumber + "&size=12";
     } else if (num==21) {
         //num=20 북마크순 페이지
-        url1="http://13.209.87.88:8080/hotplaces/bookmark?page=" + pageNumber + "&size=5";
+        url1="http://13.209.87.88:8080/hotplaces/bookmark?page=" + pageNumber + "&size=12";
     } else {
         //num=1~11 태그별 페이지
         url1="http://13.209.87.88:8080/hotplaces/tag/" + num + "?page=" + pageNumber + "&size=12";
@@ -39,11 +39,11 @@ function callApiInfo(num, pageNumber) {
             var response;
             if(num<12) {
                 response = data.spotResponses;
-            } else if(num== 20) {
-                response = data.spotBookmarkResponses;
-            } else //num==21 조회순 페이지
-            {
+            } else if(num== 20) {   //num==20 조회순 페이지
                 response = data.spotResponses;
+            } else //num==21 북마크순 페이지
+            {
+                response = data.spotBookmarkResponses;
             }
             var dataCnt = response.length;
 
@@ -130,5 +130,21 @@ function noneTag(num) {
     }
     else {
         document.getElementById("tagButton").style.display="";
+    }
+}
+
+function sort_byOnclick(num) {
+    console.log("sort_byOnclick = " + num);
+    if(num=="20")
+    {
+        $("#sort_by").text("조회순");
+    }
+    else if(num=="21")
+    {
+        $("#sort_by").text("북마크순");
+    }
+    else 
+    {
+        $("#sort_by").text("태그별");
     }
 }
