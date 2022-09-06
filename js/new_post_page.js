@@ -181,13 +181,14 @@ function createElement(e, file) {
 
 // $.ajax({
 //     url : "http://13.209.87.88:8080:/posts",
+//     headers: { Authorization: window.sessionStorage.getItem("JWT") },
 //     data : formData,
 //     contentType : false,
 //     processData : false,
 //     enctype : 'multipart/form-data',
 //     success : function(data) {
 //         if(result.success == true){
-//             alert('성공');
+//             alert('');
 //         }else {
 //             alert("실패");
 //         }
