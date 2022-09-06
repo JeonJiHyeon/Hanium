@@ -4,6 +4,7 @@ var img_area = document.getElementsByClassName('img_area');
 var time_post = 0;
 var time_comment = 0;
 
+var titleShared;
 
 console.log(window.sessionStorage.getItem("JWT"));
 if (window.sessionStorage.getItem("JWT") != null) {
@@ -28,6 +29,7 @@ function user_view() {
 
       $("#createdAt").text(createdAt);
       $("#title").text(response.title);
+      titleShared = response.title;
       $("#viewcnt").text(response.viewCnt);
       $(".text_area").text(response.context);
       $("#likecnt").text("+ " + response.greatCnt);
@@ -100,6 +102,7 @@ $.ajax({
 
     $("#createdAt").text(createdAt);
     $("#title").text(response.title);
+    titleShared = response.title;
     $("#viewcnt").text(response.viewCnt);
     $(".text_area").text(response.context);
     $("#likecnt").text("+ " + response.greatCnt);
@@ -157,7 +160,27 @@ $.ajax({
 })
 }
 
+var shareUrl = "http://13.209.87.88/post_view_page.html?"+decodeURI(receivedData);
 
+function sendLinkFacebook(){
+  var facebook_share_url = "https://www.facebook.com/sharer/sharer.php?u=" + shareUrl;
+  console.log(facebook_share_url);
+  window.open(facebook_share_url,
+              'Share on Facebook',
+              'scrollbars=no, width=500, height=500');
+}   
+function sendLinkTwitter(){
+  window.open("https://twitter.com/share?text="+titleShared+"&url="+shareUrl,
+              'Share on Twitter',
+              'scrollbars=no, width=500, height=500');
+}
+function sendLinkNaver(){
+  var naver_root_url = "http://share.naver.com/web/shareView.nhn?url="
+  var naver_share_url = naver_root_url+encodeURI(shareUrl)+"&title="+encodeURI(titleShared);
+  window.open(naver_share_url,
+              'Share on Naver',
+              'scrollbars=no, width=500, height=500');    
+}
 
 
 const query = document.querySelector('#heart_obj');
@@ -171,3 +194,5 @@ const lands = querydoc.querySelectorAll(".heart_blank")
     element.addEventListener("click", function () {
       console.log("클릭은 잘 됩니다");
     }));
+
+    
